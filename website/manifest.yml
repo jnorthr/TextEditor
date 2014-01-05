@@ -1,0 +1,13 @@
+--- 
+applications: 
+- name: FreeText2
+  instances: 1
+  memory: 512M
+  url: FreeText2.cfapps.io
+  path: ./build/libs/website.war
+  services: 
+    rediscloud-56e0a: 
+      plan: 25mb
+      label: rediscloud
+      version: n/a
+      provider: garantiadata

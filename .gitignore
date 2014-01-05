@@ -1,0 +1,15 @@
+.DS_Store
+core/.DS_Store
+core/.gradle
+core/src/.DS_Store
+core/src/main/.DS_Store
+core/src/main/groovy/.gradle/
+website/.DS_Store
+website/war/.DS_Store
+website/war/WEB-INF/.DS_Store
+website/.gradle/1.8/
+core/.gradle/
+core/build/
+website/.gradle/
+website/build/
+

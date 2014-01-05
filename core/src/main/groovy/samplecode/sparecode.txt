@@ -1,0 +1,102 @@
+/*
+panel(constraints: BorderLayout.SOUTH) 
+{
+	button text: 'Save', actionPerformed: 
+	{
+		println address
+	}
+}
+        def b1 = button(text:'Picker',actionPerformed:{println "basic";})
+                                    // icon:imageIcon(url:'http://www.google.com/favicon.ico'
+        // end of add
+*/
+
+//spinner1 = spinner(model: sModel);  //size:[10, 10], model: sModel)
+
+/*
+        panel(constraints:BorderLayout.NORTH) 
+        {
+		widget(pane) 
+        }
+
+        panel(constraints:BorderLayout.CENTER) 
+        {
+		widget(panelx) 
+        }
+
+
+        panel(constraints:BorderLayout.CENTER, background:Color.RED) 
+        {
+            widget(id:'w1',panelx)
+        }
+	widget(splitPane);
+
+	splitPane(orientation:JSplitPane.VERTICAL_SPLIT, resizeWeight:0.33d )  //, dividerLocation:32) //,minimumSize:[300,200])
+	{
+		widget(pane) 
+		widget(panelx)
+	}
+--- */
+
+/-------------------------------------
+// jcombo box code
+//------------
+// jcombobox tests
+            String[] ls = [ "strawberry", "chocolate", "vanilla","red","green","blue" ];
+            JComboBox flavour = new JComboBox( ls );
+            // ensure all three choices will be displayed without scrolling.
+            flavour.setMaximumRowCount( 3 );
+            flavour.setForeground( Color.RED );
+            flavour.setBackground( Color.WHITE );
+            flavour.setFont( new Font( "Dialog", Font.PLAIN, 12 ) );
+            // turn off the write-in feature
+            flavour.setEditable( false );
+            // setting the selection
+            flavour.setSelectedIndex( 0 );
+            // alternatively, by value.
+
+            // Compares against defined items with. .equals, not ==.
+            // For custom objects will want a custom equals method.
+            // Selected items work best with enums.
+            flavour.setSelectedItem( "chocolate" );
+
+            // add components
+            //flavour.addItemListener( theListener );
+//pane.add(flavour);
+
+/*
+, selectedItem: bind(targetProperty: 'select')
+,  actionPerformed: controller.myAction )
+cb.addItemListener(new ItemListener()
+{
+	public void itemStateChanged(ItemEvent e)
+	{
+        	System.out.println(e.getItem() + " " + e.getStateChange() );
+        }
+});
+itemListener :{ doSelect() }
+actionPerformed:{}
+ + " " + event.getStateChange()
+*/
+
+
+// No multiple selections permitted, ever, even though this is called a combo box.
+// so there is nothing we need to do to prevent them.
+/*
+def theListener = new ItemListener()
+{
+surround comments here /  *	
+      * Called whenever the value of the selection changes. Will
+      * be called twice for every change.
+      * @param e the event that characterizes the change.
+      
+     itemStateChanged( ItemEvent e )
+      {
+      		int selectedIndex = flavour.getSelectedIndex();
+            // even though JComboBox is generic, you still need the (String) cast, a legacy quirk.
+            String choice = ( String ) flavour.getSelectedItem();
+            System.out.println( selectedIndex + " " + choice);   // + " " + e.toString() );
+      }
+};
+
+*/

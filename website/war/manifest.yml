@@ -1,0 +1,13 @@
+--- 
+applications: 
+- name: freetext
+  instances: 1
+  memory: 512M
+  url: freetext.cfapps.io
+  path: .
+  services: 
+    rediscloud-777d4: 
+      plan: 25mb
+      label: rediscloud
+      version: n/a
+      provider: garantiadata

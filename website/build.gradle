@@ -1,0 +1,115 @@
+import org.apache.ivy.plugins.resolver.URLResolver
+apply plugin: 'groovy'
+apply plugin: 'war'
+apply plugin: 'cloudfoundry'
+
+repositories {
+    mavenCentral()
+}
+
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'org.cloudfoundry', name: 'cf-gradle-plugin', version: '1.0.1'
+    }
+}
+
+/* ----
+buildscript {
+    repositories {
+        mavenCentral()
+    }
+    dependencies {
+        classpath 'org.cloudfoundry:cf-gradle-plugin:1.0.1'
+    }
+}
+
+dependencies 
+{
+	classpath group: 'org.gradle.api.plugins', name: 'cf-gradle-plugin', version: '1.0.0'
+}
+
+--- */
+
+
+webAppDirName = file('war')
+dependencies {
+    compile localGroovy()
+}
+
+
+
+war {
+   from 'war' // adds a file-set to the root of the archive
+    exclude 'build/**'
+    exclude 'gradle/**'
+}
+
+cloudfoundry {
+    target = "https://api.run.pivotal.io"
+    space = "development"
+    application = "FreeText2"
+    file = file("build/libs/website.war")
+    uri = "freetext2.cfapps.io"
+    memory = 512
+    instances = 1
+
+    env = [
+      "greeting": "Hello"
+    ]
+
+    serviceInfos {
+        "redis" {
+            label = "redis-1111"
+            provider = "Garantiadata"
+            version = "n/a"
+            plan = "25mb"
+        }
+    }
+}
+
+cloudfoundry {
+    organization = 'fairchild'
+    space = 'development'
+    memory = 256
+    application = "FreeText"
+
+    target = 'https://api.run.pivotal.io'
+    username = 'man@googlemail.com'
+    password = '***'
+
+    file = new File('build/libs/website.war')
+    uri = 'http://freetext.cfapps.io'
+    env = [
+        "key": "value"
+    ]
+    serviceInfos {
+        'rediscloud-f77v2' {
+            label = 'rediscloud'
+            provider = 'Garantiadata'
+            version = 'n/a'
+            plan = '25mb'
+            bind = true
+        }
+    }
+}
+
+cloudfoundry {
+  username = 'men@work.com'
+  password = '***'
+  application = 'freetext'
+  target='https://api.run.pivotal.io' // cloud foundry V2 target for pivotal
+  //framework = 'standalone' -- obsolete
+  //applicationFramework='standalone' - obsolete
+  //runtime = 'java' - obsolete
+  file = new File(webAppDirName)
+  uris = ['http://freetext.run.pivotal.io/']
+  organization = 'fairchild'
+  space = 'development'
+}
+
+task wrapper(type: Wrapper) {
+    gradleVersion '1.9'
+}

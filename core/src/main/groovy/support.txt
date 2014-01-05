@@ -1,0 +1,169 @@
+import groovy.transform.Canonical
+@Canonical
+class Cell
+{
+    String filename = ""
+    String time = "";
+    int cursorAt = 0;
+    boolean decoded = false;
+    boolean found = false; // confirmed that file named by filename does still exist
+    
+    public Cell()
+    {
+    } // end of constructor
+    
+    public Cell(txt)
+    {
+        decoded = split(txt);
+    } // end of constructor
+    
+    boolean match(inp) { (inp.toLowerCase().equals(filename.toLowerCase()) ) } 
+    
+    //  /Volumes/Media/Users/ww:=55; 2013-11-09 22:28:41CET
+    boolean split(txt)
+    {
+        int i = txt.indexOf(":=");
+        boolean flag = ( i >- 1 )
+        
+        if (flag)
+        {        
+            int j = txt.substring(i).indexOf(";");
+            if (j > -1)
+            {
+                j += i;
+                println "split(${txt}) i=$i and j=$j"
+                
+                def f = txt.substring(0,i).trim() 
+                def c = txt.substring(i+2,j).trim();
+                def t = txt.substring(j+1).trim();
+                println "f=<${f}>" 
+                println "c=<${c}>" 
+                println "t=<${t}>" 
+                filename = f;
+                try{ cursorAt = c as int; } catch(Exception e) {}
+                time = t;
+                decoded = true;
+                found =  new File( filename ).exists();
+            } // end of if
+            else
+            {
+                flag = false;
+            }
+        } // end of if
+        
+        return flag;
+        
+    } // end of split
+    
+} // end of class
+ 
+
+def getLog()
+{
+    def getProperty = System.&getProperty  
+    def home = getProperty("user.home")
+    return home+"/.TextEditor.log";
+} // end of get
+  
+ 
+    List<Cell> cells = [];
+ 
+    Cell c = new Cell("/Volumes/FHD-XS/TextEditor/TextEditor/core/src/main/groovy/PopupMenuExample.groovy:=230; 2013-11-10 15:53:37CET");
+    println "c="+c;
+
+    c = new Cell("/Volumes/Media/Users/ww:=2; 2013-11-05 18:42:42CET");
+    println "c="+c;
+
+  
+        def logEntries=[]
+        def logName = getLog();
+        
+        if ( !( new File( logName).exists() ) ) return logEntries;
+
+        // read all lines from log file
+        def log = new File(logName).text;
+        log.eachLine{ln ->
+            println "\n--->"+ln; 
+            
+            c = new Cell(ln);
+            
+            if (c.decoded)
+            {
+                cells+=c;
+                println "c="+c.toString();
+            } // end of if
+                
+        } // end of log
+
+
+        cells.sort();
+
+
+
+/*
+        // reorder list so latest edited file is first, oldest is last
+        logEntries.reverse(true);
+
+        def logMap=[:]
+
+    
+        println "most recently edited file of ${logEntries.size()} files was "+lastedited;
+        def last=""
+        def le=""
+        def at="0"
+        def lat="0"
+        logEntries=[]
+        def flag = false;
+        
+        println "\nlogMap follows:"
+        logMap.each{k,v-> println "key="+k+"  and value="+v;
+            int j = v.indexOf(":=");
+            if (j > -1)
+            {
+              int n = j+2
+              def fi = v.substring(0,n-2);
+              flag = new File(fi).exists()        
+              def tx = v.substring(n);  
+              println "---- after :=<${tx}> n=${n}\n     file  : "+fi+" exists? "+flag;        
+
+
+              int m = tx.indexOf(";")    
+              lat = tx.substring(0,m)
+              tx = tx.substring(m+1).trim()
+              
+              if (flag)
+              {
+                  logEntries += "${tx}:=${v}"
+                  println "---- after ; <${tx}> j=$j and m=$m" 
+                  if (tx>last)
+                  {
+                      at = lat;    
+                      last=tx;
+                      le = v;
+                  } // end of if
+              } // end of if
+                     
+            } // end of if
+            
+        
+        } // end of each
+
+
+        println "\nLast Edited file was:"+le+" on "+last+" cursor was at "+at+"\n\n"
+        println "     does logMap contain lowercase /volumes/media/users/xx ? "+logMap.containsKey("/volumes/media/users/xx")
+        logEntries.sort();    
+        logEntries.reverse(true);
+        println "\nLog Entries :"
+        logEntries.each{loge ->
+            println loge
+        } // end of each
+                
+        println "==============="
+*/
+        
+/*
+                logEntries.push(c.filename);
+
+                // filename as lowercase key to full line of text
+                logMap[lastedited.toLowerCase()]= ln;
+*/        

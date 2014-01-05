@@ -1,0 +1,133 @@
+// FreeText build.gradle
+// imac:jim /Volumes/Data/dev/GroovyTextEditor $ groovy jar:file:http://github.com/jnorthr/TextEditor/blob/master/build/libs/GroovyTextEditor-1.0.jar!/FreeText.groovy
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+mainClassName = "FreeText"
+sourceCompatibility = 1.5
+version = '1.0'
+
+defaultTasks 'clean','build', 'run'  // 'installApp', 'makejar', 'distZip','run'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    groovy 'org.codehaus.groovy:groovy-all:2.2.0'
+    compile 'org.apache.ivy:ivy:2.3.0'
+    testCompile 'junit:junit:4.11'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.+'
+}
+ 
+sourceSets {
+  main {
+    groovy {
+      exclude 'some/unwanted/package/**'
+    } // end of groovy
+  } // end of main
+} // end of sourceSets
+
+jar { 
+    archivesBaseName='FreeText'
+    manifest {
+        attributes 'Implementation-Title': 'FreeText', 'Implementation-Version': version, 'Main-Class': 'FreeText'
+    }
+}
+
+task(runCaret, dependsOn: 'classes', type: JavaExec) {
+	main = 'CaretShape'
+	classpath = sourceSets.main.runtimeClasspath
+	args 'mrhaki'
+	systemProperty 'simple.message', 'Hello '
+}
+
+
+task(runSupport, dependsOn: 'classes', type: JavaExec) {
+	main = 'Support'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+task(runDemo, dependsOn: 'classes', type: JavaExec) {
+	main = 'TextAreaDemo'
+	classpath = sourceSets.main.runtimeClasspath
+	args 'jnorthr'
+	systemProperty 'simple.message', 'Hello '
+}
+
+task(runTextFieldDemo, dependsOn: 'classes', type: JavaExec) {
+	main = 'TextFieldDemo'
+	classpath = sourceSets.main.runtimeClasspath
+	args 'jnorthr'
+	systemProperty 'simple.message', 'Hello '
+}
+
+task(runBasic, dependsOn: 'classes', type: JavaExec) {
+	main = 'BasicText'
+	classpath = sourceSets.main.runtimeClasspath
+	args 'jnorthr'
+	systemProperty 'simple.message', 'Hi kids '
+}
+
+task(runPicker, dependsOn: 'classes', type: JavaExec) {
+	main = 'ColorPicker'
+	classpath = sourceSets.main.runtimeClasspath
+	args 'jnorthr'
+	systemProperty 'simple.message', 'Hi kids '
+}
+
+task(runJOptionTests, dependsOn: 'classes', type: JavaExec) {
+	main = 'JOptionTests'
+	classpath = sourceSets.main.runtimeClasspath
+	args 'jnorthr'
+	systemProperty 'simple.message', 'Hi kids '
+}
+
+task(runJCombo, dependsOn: 'classes', type: JavaExec) {
+	main = 'TestJComboBox'
+	classpath = sourceSets.main.runtimeClasspath
+	args 'jnorthr'
+	systemProperty 'simple.message', 'Hi kids '
+}
+
+task(runConfigTool, dependsOn: 'classes', type: JavaExec) {
+	main = 'ConfigTool'
+	classpath = sourceSets.main.runtimeClasspath
+	args 'development'
+	systemProperty 'simple.message', 'Hi kids '
+}
+
+task(runSwing1, dependsOn: 'classes', type: JavaExec) {
+	main = 'Swing1'
+	classpath = sourceSets.main.runtimeClasspath
+}
+task(runSpinnerExample, dependsOn: 'classes', type: JavaExec) {
+	main = 'SpinnerExample'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+task(runSwingDemo, dependsOn: 'classes', type: JavaExec) {
+	main = 'SwingDemo'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+task(runTrackPaths, dependsOn: 'classes', type: JavaExec) {
+	main = 'TrackPaths'
+	classpath = sourceSets.main.runtimeClasspath
+}
+
+task makejar(type: Jar) {
+    from files(sourceSets.main.output.classesDir)
+    from configurations.runtime.asFileTree.files.collect { zipTree(it) }
+    archivesBaseName='FreeText'
+    manifest {
+        attributes 'Main-Class': 'FreeText', archivesBaseName:'FreeText'
+    }
+}
+
+// ================================
+task wrapper(type: Wrapper) {
+    gradleVersion = '1.9'
+}

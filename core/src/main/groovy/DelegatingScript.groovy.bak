@@ -1,0 +1,55 @@
+// http://groovy.codehaus.org/Groovy 2.1 release notes  and
+// http://blog.andresteingress.com/2013/01/25/groovy-2-1-groovyc-configscript/
+// http://groovy.codehaus.org/Groovy%202.1%20release%20notes#Groovy2.1releasenotes-Compilerconfigurationscript
+// also see the static vs dynamic debate here: http://docs.codehaus.org/display/GroovyJSR/GEP+10+-+Static+compilation
+
+import org.codehaus.groovy.control.customizers.ImportCustomizer
+import org.codehaus.groovy.control.CompilerConfiguration
+import static org.codehaus.groovy.control.customizers.builder.CompilerCustomizationBuilder.*
+import groovy.transform.ToString
+
+def importCustomizer = new ImportCustomizer()
+importCustomizer.addStaticStar('java.lang.Math')
+CompilerConfiguration configuration = new CompilerConfiguration()
+
+configuration.addCompilationCustomizers(importCustomizer)
+
+//@groovy.transform.CompileStatic  <- won't compile
+ @ToString
+class Person{
+    String name
+    void say() {
+        println "Hello ${name}"
+    }
+} // end of class
+
+withConfig(configuration) {
+    source(basenameValidator: { it.endsWith('MyDomain') }) {
+        ast(ToString)
+    }
+    source(basenameValidator: { it.endsWith('mathFormula') }) {
+        imports {
+            staticStar 'java.lang.Math'
+        }
+    }
+}
+
+//----------------------------
+def freddsl="""
+name = 'Jim'
+say()
+"""
+
+//println new File("fred.dsl").text
+
+// DelegatingScript base script class
+def cc = new CompilerConfiguration()
+cc.scriptBaseClass = DelegatingScript.class.name
+
+def sh = new GroovyShell(cc);
+def script = sh.parse(freddsl.toString());   //new File("fred.dsl").text)
+def p = new Person('name':'fred')
+script.setDelegate(p)
+script.run()
+
+assert p.name == "Jim"

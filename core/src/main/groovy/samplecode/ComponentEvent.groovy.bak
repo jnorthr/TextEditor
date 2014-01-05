@@ -1,0 +1,59 @@
+import java.awt.*
+import javax.swing.*
+import java.awt.event.*;
+
+public class ComponentTracker implements ComponentListener {
+
+    Dimension screensize;
+
+    public ComponentTracker() 
+    {    
+           screensize = Toolkit.getDefaultToolkit().getScreenSize();
+    }
+
+    public void displayMessage(msg) {println msg;}
+
+    public void componentHidden(ComponentEvent e) {
+        displayMessage(e.getComponent().getClass().getName() + " --- Hidden");
+    }
+
+    public void componentMoved(ComponentEvent e) {
+        int nx = e.getComponent().getX();
+        int ny = e.getComponent().getY();
+        int w = e.getComponent().getWidth()
+        int h = e.getComponent().getHeight()
+
+        displayMessage(e.getComponent().getClass().getName() + " --- Moved getX=${nx} getY=${ny} w=${w} h=${h} ");
+    }
+
+    public void componentResized(ComponentEvent e) {
+        int nx = e.getComponent().getX();
+        int ny = e.getComponent().getY();
+        int w = e.getComponent().getWidth()
+        int h = e.getComponent().getHeight()
+
+        displayMessage(e.getComponent().getClass().getName() + " --- Resized getX=${nx} getY=${ny} w=${w} h=${h} ");            
+    }
+
+    public void componentShown(ComponentEvent e) {
+        displayMessage(e.getComponent().getClass().getName() + " --- Shown");
+
+    }
+
+    public static void main(String[] args) {
+        JFrame frame;
+        def ncp = new ComponentTracker();
+
+        println "size.width:"+ncp.screensize.width
+        println "size.height:"+ncp.screensize.height
+
+        //Create and set up the window.
+        frame = new JFrame("ComponentTracker");
+        JPanel panel = new JPanel(new BorderLayout());
+
+        //panel.addComponentListener(ncp);
+        frame.addComponentListener(ncp);
+        frame.setContentPane(panel);
+        frame.show()
+    }
+}
