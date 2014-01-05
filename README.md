@@ -187,3 +187,7 @@ this.setJMenuBar(menuBar);
 public void minimizeWindowMenuItem_actionPerformed(final ActionEvent e) {
   mainFrame.setExtendedState(Frame.ICONIFIED);
 }
+=======
+
+Java/Groovy simple ascii text editor
+
