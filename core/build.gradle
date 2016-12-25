@@ -5,8 +5,8 @@ apply plugin: 'groovy'
 apply plugin: 'application'
 
 mainClassName = "FreeText"
-sourceCompatibility = 1.5
-version = '1.0'
+sourceCompatibility = 1.7
+version = '1.1'
 
 defaultTasks 'clean','build', 'run'  // 'installApp', 'makejar', 'distZip','run'
 
@@ -15,7 +15,7 @@ repositories {
 }
 
 dependencies {
-    groovy 'org.codehaus.groovy:groovy-all:2.2.0'
+    compile 'org.codehaus.groovy:groovy-all:2.4.7'
     compile 'org.apache.ivy:ivy:2.3.0'
     testCompile 'junit:junit:4.11'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
@@ -129,5 +129,5 @@ task makejar(type: Jar) {
 
 // ================================
 task wrapper(type: Wrapper) {
-    gradleVersion = '1.9'
+    gradleVersion = '3.2'
 }

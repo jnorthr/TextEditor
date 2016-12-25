@@ -1,4 +1,6 @@
 .DS_Store
+.git
+build/
 core/.DS_Store
 core/.gradle
 core/src/.DS_Store
