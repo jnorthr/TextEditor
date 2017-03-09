@@ -1,1 +1,3 @@
-include ':core',':war',':editordata'
+include ':core'
+include ':war'
+include ':editordata'

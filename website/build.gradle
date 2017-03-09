@@ -1,4 +1,4 @@
-import org.apache.ivy.plugins.resolver.URLResolver
+//import org.apache.ivy.plugins.resolver.URLResolver
 apply plugin: 'groovy'
 apply plugin: 'war'
 apply plugin: 'cloudfoundry'
@@ -37,6 +37,7 @@ dependencies
 webAppDirName = file('war')
 dependencies {
     compile localGroovy()
+    compile project(':core')
 }
 
 
@@ -50,7 +51,7 @@ war {
 cloudfoundry {
     target = "https://api.run.pivotal.io"
     space = "development"
-    application = "FreeText2"
+    application = "FreeText"
     file = file("build/libs/website.war")
     uri = "freetext2.cfapps.io"
     memory = 512

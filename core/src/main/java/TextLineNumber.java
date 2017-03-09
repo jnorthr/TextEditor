@@ -1,39 +1,31 @@
+import java.awt.*;
+import java.awt.event.*;
+import java.beans.*;
+import java.util.HashMap;
+import javax.swing.*;
+import javax.swing.border.*;
+import javax.swing.event.*;
+import javax.swing.text.*;
+
 /* - to use it:
 TextLineNumber tln = new TextLineNumber(textPane);
 scrollPane.setRowHeaderView( tln );
 
 TextLineNumber extends JComponent so you can easily customize the foreground, background or border. The font defaults to the related text components font. It can be changed, but you are responsible for ensuring the font size is reasonable. It also supports a couple of methods to allow for further customization:
 
-    setBorderGap Ð a convenience method to adjust the left and right insets of the Border, 
+    setBorderGap â€“ a convenience method to adjust the left and right insets of the Border, 
     while retaining the outer MatteBorder
 
-    setCurrentLineForeground Ð the Color of the current line number
+    setCurrentLineForeground â€“ the Color of the current line number
 
-    setDigitAlignment Ð align the line numbers to the LEFT, CENTER or RIGHT
+    setDigitAlignment â€“ align the line numbers to the LEFT, CENTER or RIGHT
 
-    setMinimumDisplayDigits Ð controls the minimum width of the component. 
+    setMinimumDisplayDigits â€“ controls the minimum width of the component. 
     The width will increase automatically as necessary.
 
-    setUpdateFont Ð enables the automatic updating of the Font when the Font of the related text component changes.
+    setUpdateFont â€“ enables the automatic updating of the Font when the Font of the related text component changes.
 
 */
-
-import java.awt.*;
-
-import java.awt.event.*;
-
-import java.beans.*;
-
-import java.util.HashMap;
-
-import javax.swing.*;
-
-import javax.swing.border.*;
-
-import javax.swing.event.*;
-
-import javax.swing.text.*;
-
 
 
 /**
