@@ -15,9 +15,9 @@ repositories {
 }
 
 dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.7'
+    compile 'org.codehaus.groovy:groovy-all:2.4.12'
     compile 'org.apache.ivy:ivy:2.3.0'
-    testCompile 'junit:junit:4.11'
+    testCompile 'junit:junit:4.12'
     compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
     compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.+'
 }
@@ -129,5 +129,5 @@ task makejar(type: Jar) {
 
 // ================================
 task wrapper(type: Wrapper) {
-    gradleVersion = '3.2'
+    gradleVersion = '4.0'
 }
