@@ -1,7 +1,7 @@
 TextEditor
 ==========
        
-A Basic Text Editor for systems supporting Java JVM 1.5+
+A Basic Text Editor for systems supporting Java JVM 1.8+
  
 /*
 TODO:
