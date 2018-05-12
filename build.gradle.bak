@@ -1,0 +1,36 @@
+// FreeText build.gradle
+// imac:jim /Volumes/Data/dev/GroovyTextEditor $ groovy jar:file:http://github.com/jnorthr/TextEditor/blob/master/build/libs/GroovyTextEditor-1.0.jar!/FreeText.groovy
+apply plugin: 'java'
+apply plugin: 'groovy'
+apply plugin: 'application'
+
+mainClassName = "FreeText"
+sourceCompatibility = 1.8
+version = '1.1'
+
+defaultTasks 'clean','build', 'run'  // 'installApp', 'makejar', 'distZip','run'
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    compile 'org.codehaus.groovy:groovy-all:2.4.14'
+    compile 'org.apache.ivy:ivy:2.3.0'
+    testCompile 'junit:junit:4.12'
+    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
+    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.+'
+}
+
+jar { 
+    archivesBaseName='FreeText'
+    manifest {
+        attributes 'Implementation-Title': 'FreeText', 'Implementation-Version': version, 'Main-Class': 'FreeText'
+    }
+}
+
+
+// ================================
+task wrapper(type: Wrapper) {
+    gradleVersion = '4.7'
+}

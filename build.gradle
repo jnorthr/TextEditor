@@ -1,36 +1,35 @@
-// FreeText build.gradle
-// imac:jim /Volumes/Data/dev/GroovyTextEditor $ groovy jar:file:http://github.com/jnorthr/TextEditor/blob/master/build/libs/GroovyTextEditor-1.0.jar!/FreeText.groovy
-apply plugin: 'java'
-apply plugin: 'groovy'
-apply plugin: 'application'
+subprojects 
+{
+    	apply plugin: 'groovy'
+    	//group = 'groovyx.caelyf'
+    	version = "0.3.0"
+        repositories
+        {
+        	mavenCentral()
+    	}
 
-mainClassName = "FreeText"
-sourceCompatibility = 1.8
-version = '1.1'
+    	dependencies
+        {
+        	testCompile "junit:junit:4.12"
+    	}
 
-defaultTasks 'clean','build', 'run'  // 'installApp', 'makejar', 'distZip','run'
-
-repositories {
-    mavenCentral()
+    	test
+        {
+        	maxParallelForks = Runtime.getRuntime().availableProcessors()
+    	}
 }
 
-dependencies {
-    compile 'org.codehaus.groovy:groovy-all:2.4.14'
-    compile 'org.apache.ivy:ivy:2.3.0'
-    testCompile 'junit:junit:4.12'
-    compile group: 'org.slf4j', name: 'slf4j-api', version: '1.7.+'
-    compile group: 'ch.qos.logback', name: 'logback-classic', version: '1.+'
-}
 
-jar { 
-    archivesBaseName='FreeText'
-    manifest {
-        attributes 'Implementation-Title': 'FreeText', 'Implementation-Version': version, 'Main-Class': 'FreeText'
+project(':website') {
+    dependencies 
+	{
+        compile project(':core')
     }
 }
 
+//defaultTasks 'clean', 'build', ':core:jar', ':core:dist', ':template-project:war', ':website:apiIcons', ':website:reportIcons', ':website:war', ':website:copyArtifacts'
+//':template-project:template', ':template-project:copy',  ':website:cf-login',':website:cf-push', ':template-project:cf-push'
 
-// ================================
 task wrapper(type: Wrapper) {
-    gradleVersion = '4.7'
+    gradleVersion "4.7"
 }
